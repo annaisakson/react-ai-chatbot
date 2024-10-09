@@ -1,0 +1,128 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  font-family: "Open Sans", sans-serif;
+}
+
+.app {
+  background-color: #343541;
+  display: flex;
+}
+
+/* SIDE */
+
+.sideBar {
+  background-color: #202123;
+  height: 100vh;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+button {
+  border: solid 0.5px #fff;
+  background-color: transparent;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+}
+
+nav {
+  border-top: solid 0.5px #fff;
+  padding: 10px;
+  margin: 10px;
+}
+
+.history {
+  padding: 10px;
+  margin: 10px;
+  height: 100%;
+}
+
+.history li {
+  list-style-type: none;
+  padding: 15px 0;
+  cursor: pointer;
+}
+
+/* MAIN */
+
+.main {
+  height: 100vh;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+}
+
+.bottomSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.info {
+  color: #ffffff50;
+}
+
+.inputContainer {
+  position: relative;
+  width: 100%;
+  max-width: 650px;
+}
+
+input {
+  font-size: 1em;
+  width: 100%;
+  border: none;
+  background-color: #ffffff10;
+  padding: 12px 15px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px;
+}
+
+input:focus {
+  outline: none;
+}
+
+#submit {
+  position: absolute;
+  bottom: 11px;
+  right: 10px;
+  cursor: pointer;
+  text-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px;
+  color: #ffffff40;
+}
+
+.feed {
+  overflow: scroll;
+  width: 60%;
+  padding: 0;
+}
+
+.feed li {
+  display: flex;
+  background-color: #ffa9bd;
+  width: 100%;
+  padding: 20px;
+  margin: 20px 0px;
+}
+
+.feed p {
+  color: #ffffff80;
+  font-size: 1.2em;
+  text-align: left;
+}
+
+.feed p.role {
+  min-width: 100px;
+}
