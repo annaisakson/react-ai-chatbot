@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function App() {
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState("");
   const [message, setMessage] = useState(null);
   const [previousChats, setPreviousChats] = useState([]);
   const [currentTitle, setCurrentTitle] = useState(null);
+  const inputRef = useRef(null);
 
   const createNewChat = () => {
     setMessage(null);
@@ -36,7 +37,11 @@ function App() {
       );
       const data = await response.json();
       console.log(data);
-      setMessage(data.choices[0].message);
+      if (data.choices && data.choices.length > 0) {
+        setMessage(data.choices[0].message);
+      } else {
+        console.error("No valid response from OpenAI");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -61,8 +66,18 @@ function App() {
           content: message.content,
         },
       ]);
+      setValue("");
+      inputRef.current?.focus();
     }
   }, [message, currentTitle]);
+
+  // Add a handler for the Enter key
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      getMessages();
+    }
+  };
 
   const currentChat = previousChats.filter(
     (previousChat) => previousChat.title === currentTitle
@@ -91,15 +106,24 @@ function App() {
 
         <ul className="feed">
           {currentChat?.map((chatMessage, index) => (
-            <li key={index}>
-              <p className="role">{chatMessage.role}</p>
+            <li
+              key={index}
+              className={
+                chatMessage.role === "user" ? "userMessage" : "aiMessage"
+              }
+            >
+              {/* <p className="role">{chatMessage.role}</p> */}
               <p>{chatMessage.content}</p>
             </li>
           ))}
         </ul>
         <div className="bottomSection">
           <div className="inputContainer">
-            <input value={value} onChange={(e) => setValue(e.target.value)} />
+            <input
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
             <div id="submit" onClick={getMessages}>
               ►
             </div>

@@ -9,16 +9,17 @@ const app = express();
 app.use(express.json());
 dotenv.config();
 
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
 app.use(
   cors({
-    origin: FRONTEND_URL,
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin: "*",
   })
 );
+
+app.get("/", (req, res) => {
+  res.send("Hello");
+});
 
 app.post("/completions", async (req, res) => {
   const options = {
@@ -28,7 +29,7 @@ app.post("/completions", async (req, res) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: openai("gpt-4o-2024-08-06"),
+      model: "gpt-4o", // Use correct model name
       messages: [{ role: "user", content: req.body.message }],
       max_tokens: 100,
     }),
