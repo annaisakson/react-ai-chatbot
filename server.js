@@ -1,9 +1,8 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { openai } from "@ai-sdk/openai";
 
-const PORT = 3030;
+const PORT = process.env.PORT || 3030;
 const app = express();
 
 app.use(express.json());
@@ -29,7 +28,7 @@ app.post("/completions", async (req, res) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: "gpt-4o", // Use correct model name
+      model: "gpt-4o",
       messages: [{ role: "user", content: req.body.message }],
       max_tokens: 100,
     }),
